@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Russo+One&display=swap" rel="stylesheet">
+    <title>Emotion, Engineered - Arisa M</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Russo One", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            background-image: url('background.png');
+            background-size:cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #start-screen {
+            text-align: center;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            display: block;
+        }
+
+        #game-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #558ec7;
+            margin-bottom: 20px;
+        }
+
+        #story-text {
+            font-size: 1.2rem;
+            color: #20335f;
+            margin-bottom: 30px;
+        }
+
+        .choice {
+            background-color: #7687a3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            display: inline-block;
+        }
+
+        .choice:hover {
+            background-color: #cbebff;
+            color: #20335f;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        #start-button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            background-color: #7687a3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+
+        #start-button:hover {
+            background-color: #cbebff;
+            color: #20335f;
+        }
+    </style>
+</head>
+<body>
+    <!-- Start Screen -->
+    <div id="start-screen">
+        <h1>Emotion, Engineered</h1>
+        <h3>Welcome, User.</h3>
+        <p>Ready to begin?</p>
+        <button id="start-button">Start</button>
+        <p>This story was created and designed by:</p>
+        <p>Arisa Moonsammy</p>
+    </div>
+
+    <!-- Game Content -->
+    <div id="game-container">
+        <h1 id="title">Emotion, Engineered</h1>
+        <p id="story-text"></p>
+        <div id="choices">
+            <button class="choice" onclick="nextScene(0)">Choice 1</button>
+            <button class="choice" onclick="nextScene(1)">Choice 2</button>
+            <button class="choice" onclick="nextScene(2)">Choice 3</button>
+        </div>
+    </div>
+
+    <script>
+        // Game scenes and choices
+        let scenes = [
+            {
+                text: "Elara sits in a sterile clinic, waiting for her procedure. She reflects on her struggles with art and life. Is this the solution she’s been looking for?",
+                choices: [
+                    { text: "I’m ready to try it. I need something to help me feel again.", nextScene: 1 },
+                    { text: "What if this is just a way to escape? Can I truly control what I feel?", nextScene: 2 },
+                ]
+            },
+            {
+                text: "Elara undergoes the procedure. Soon, she starts to feel an overwhelming sense of calm. The chip is working. But is this really happiness?",
+                choices: [
+                    { text: "I’ll enhance happiness. I want to feel genuinely happy for once.", nextScene: 3 },
+                    { text: "I want peace. I’ve never felt calm, and that’s what I need.", nextScene: 4 },
+                    { text: "I’ll enhance creativity. Maybe this will help with my art.", nextScene: 5 },
+                ]
+            },
+            {
+                text: "Elara feels unsure about the decision. But eventually, she decides to go through with it, hoping it will improve her life.",
+                choices: [
+                    { text: "I’ll enhance happiness. I want to feel genuinely happy for once.", nextScene: 3 },
+                    { text: "I want peace. I’ve never felt calm, and that’s what I need.", nextScene: 4 },
+                    { text: "I’ll enhance creativity. Maybe this will help with my art.", nextScene: 5 },
+                ]
+            },
+            {
+                text: "Elara feels euphoric. Her social interactions are more enjoyable, and everything seems brighter. But something feels *off*—is this real joy?",
+                choices: [
+                    { text: "I feel amazing, but why does it feel like something’s missing? I need to experience real emotions again.", nextScene: 6 },
+                    { text: "This is what I wanted. I’ve never been this productive and happy.", nextScene: 7 },
+                    { text: "I want to disconnect from this, and see what it’s like to feel raw emotions.", nextScene: 8 },
+                ]
+            },
+            {
+                text: "Elara experiences a calm that feels wonderful. But her relationships begin to fade. She feels increasingly isolated.",
+                choices: [
+                    { text: "I need to reengage with others. I can’t keep disconnecting.", nextScene: 6 },
+                    { text: "This is the peace I’ve always needed. I’ll stay in this calm state.", nextScene: 7 },
+                    { text: "I need to experience the full range of emotions. I’ll try removing the chip.", nextScene: 8 },
+                ]
+            },
+            {
+                text: "Elara’s creativity soars. She becomes a successful artist, but her art feels soulless, and her relationships crumble as she becomes absorbed in her work.",
+                choices: [
+                    { text: "I feel empty. Maybe I should remove the chip.", nextScene: 8 },
+                    { text: "I’ll keep creating. Success feels good, even if it’s at the cost of everything else.", nextScene: 7 },
+                    { text: "I want to experience true, unaltered emotions. I’ll disconnect.", nextScene: 6 },
+                ]
+            },
+            {
+                text: "Elara is struggling with the loss of genuine emotions. She realizes that she’s been living in a manufactured state. Can she reclaim herself?",
+                choices: [
+                    { text: "I need to remove the chip and return to reality.", nextScene: 9 },
+                    { text: "Maybe I can keep some of the artificial happiness to balance out my emotions.", nextScene: 10 },
+                    { text: "I’ll try to live without any enhancements. No more artificial happiness.", nextScene: 11 },
+                ]
+            },
+            {
+                text: "Elara remains in the enhanced state, living a life full of artificial joy. But something deep inside her craves authenticity.",
+                choices: [
+                    { text: "I’ll leave it all behind and remove the chip.", nextScene: 9 },
+                    { text: "I’ll stay here forever. I’ve finally found what I wanted.", nextScene: 10 },
+                    { text: "I feel like I’m losing myself. Maybe it's time to change.", nextScene: 11 },
+                ]
+            },
+            {
+                text: "Elara removes the chip. She feels exposed and raw but begins to reconnect with the world. True happiness is painful but real.",
+                choices: [
+                    { text: "I’ll keep going, even if it’s difficult.", nextScene: 12 },
+                    { text: "I regret this. Maybe I should go back to the chip.", nextScene: 13 },
+                    { text: "I’m free now. I can experience life without any artificial interference.", nextScene: 14 },
+                ]
+            },
+            {
+                text: "Elara lives with the chip, knowing that happiness is constant. But is it real? Something feels missing, and she starts to question her choices.",
+                choices: [
+                    { text: "I’ll go back to the unfiltered reality.", nextScene: 9 },
+                    { text: "This is enough. I’ll stay in the artificial happiness.", nextScene: 10 },
+                    { text: "I can’t live like this anymore. I’ll remove the chip.", nextScene: 11 },
+                ]
+            },
+            {
+                text: "Elara has found peace and authenticity again. Life feels rich, full of both joy and sorrow, and she learns to appreciate the complexity of it all.",
+                choices: [
+                    { text: "The journey was worth it. I’m ready to live fully.", nextScene: 15 },
+                ]
+            },
+        ];
+
+        let currentScene = 0;
+
+        // Function to display the story and choices
+        // Function to display the story and choices
+        function displayScene() {
+            const scene = scenes[currentScene];
+            document.getElementById('story-text').innerText = scene.text;
+
+            const buttons = document.querySelectorAll('.choice');
+            buttons.forEach((button, index) => {
+                if (scene.choices[index]) {
+                    button.innerText = scene.choices[index].text;
+                    button.style.display = 'inline-block';
+                    button.style.opacity = 0;  // Reset opacity to 0 before the fade-in
+
+                    // Remove the existing animation and reset it for each button
+                    button.style.animation = 'none';
+                    setTimeout(() => {
+                        button.style.animation = 'fadeIn 1s forwards';  // Reapply the fade-in effect
+                    }, 50); // Small delay to ensure the reset works
+
+                    button.onclick = () => nextScene(scene.choices[index].nextScene);
+                } else {
+                    button.style.display = 'none';
+                }
+            });
+        }
+
+        // Function to change to the next scene
+        function nextScene(sceneIndex) {
+            currentScene = sceneIndex;
+            displayScene();
+        }
+
+        // Start the game
+        function startGame() {
+            // Hide the start screen and show the game content
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('game-container').style.display = 'block';
+            displayScene();
+        }
+
+        // Event listener to start the game
+        document.getElementById('start-button').addEventListener('click', startGame);
+    </script>
+</body>
+</html>
